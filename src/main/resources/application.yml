@@ -1,0 +1,27 @@
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: com.devin.micro.integral.domain.pojo.model
+
+#设定启动端口
+server:
+  port: 8977
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/integral?useSSL=false&autoReconnect=true&failOverReadOnly=false
+  servlet:
+    #文件上传配置
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  conf:
+    upload-url: "/Users/wangdongming/Documents/work/resource/upload/" #文件上传路径
+    show-url: "/image/" #文件回显路径
