@@ -3,12 +3,13 @@ package com.devin.micro.integral.domain.controller;
 import com.devin.micro.integral.domain.business.FileHandleBusiness;
 import com.devin.micro.integral.domain.business.ProductInfoBusiness;
 import com.devin.micro.integral.domain.pojo.vo.ProductInfoVO;
+import com.devin.micro.integral.extension.lock.DistributedLockEnum;
+import com.devin.micro.integral.extension.redis.RedisDistributedLockSupport;
 import com.devin.micro.integral.extension.response.GlobalResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -42,7 +43,20 @@ public class ProductInfoController {
      */
     @RequestMapping("/uploadFile")
     public GlobalResponseEntity uploadFile(HttpServletRequest request){
-        fileHandleBusiness.batchFileUploadHandle(request);
+        RedisDistributedLockSupport support = new RedisDistributedLockSupport(10);
+        boolean acquire = false;
+        try {
+            acquire = support.acquire(DistributedLockEnum.FOR_TEST_NO_TRY);
+            if (acquire){
+                fileHandleBusiness.batchFileUploadHandle(request);
+            }
+        }catch (Exception e){
+
+        }finally {
+            if (acquire){
+                support.release(DistributedLockEnum.FOR_TEST_NO_TRY);
+            }
+        }
         return GlobalResponseEntity.success();
     }
 

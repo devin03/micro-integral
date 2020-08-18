@@ -20,6 +20,35 @@ spring:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+  #这里这两个是关键，没有这两个配置，前台获取不到图片，映射路径到指定路径，这里是把localhost:8977 路径映射到了${upload-url}/下
+  #界面上的图片路径为localhost:8977/image/abc.jpg 这个路径会映射到${upload-url}/abc.jpg下
+  mvc:
+    static-path-pattern: /image/**
+  resources:
+    static-locations: file:${app.conf.upload-url}
+  #thymeleaf模板引擎
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+    cache: false
+    servlet:
+      content-type: text/html
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 8000
+    database: 0
+    jedis:
+      pool:
+        max-active: 100
+        max-wait: 5000
+        max-idle: 10
+        min-idle: 4
 
 app:
   conf:
