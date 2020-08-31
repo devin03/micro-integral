@@ -4,7 +4,7 @@ spring:
     name: '@pom.name@'
   profiles:
     #设定默认激活的profile
-    active: dev
+    active: local
 security:
   basic:
     #禁用springboot安全
@@ -33,7 +33,7 @@ info:
 
 ---
 spring:
-  profiles: dev
+  profiles: local
 
 ---
 spring:

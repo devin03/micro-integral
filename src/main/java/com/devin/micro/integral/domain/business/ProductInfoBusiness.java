@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -29,6 +30,9 @@ public class ProductInfoBusiness {
     @Autowired
     private FileHandleBusiness fileHandleBusiness;
 
+    @Value("${logging.file.path}")
+    private String logPath;
+
     /**
      * 添加商品
      * @param productInfoVO 商品参数信息
@@ -38,7 +42,7 @@ public class ProductInfoBusiness {
      * @date 2020/08/15
      */
     public GlobalResponseEntity addProductInfo(ProductInfoVO productInfoVO, HttpServletRequest request){
-        LOG.info("addProductInfo request param is {}",productInfoVO);
+        LOG.info("addProductInfo request param is {},path is {}",productInfoVO,logPath);
         String imageUrls = fileHandleBusiness.batchFileUploadHandle(request);
         ProductInfo productInfo = new ProductInfo();
         BeanUtils.copyProperties(productInfoVO,productInfo);
@@ -47,6 +51,7 @@ public class ProductInfoBusiness {
         productInfo.setUpdateTime(CalendarUtil.getCurrentDate());
         int count = productInfoService.insertSelective(productInfo);
         Assert.isTrue(count > 0,String.format("add product info fail,product number is %s",productInfoVO.getProductNumber()));
+        LOG.info("addProductInfo success");
         return GlobalResponseEntity.success();
     }
 

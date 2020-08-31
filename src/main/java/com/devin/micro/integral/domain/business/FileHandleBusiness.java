@@ -31,6 +31,7 @@ public class FileHandleBusiness {
         LOG.info("batch file upload start...");
         List<MultipartFile> list = ((MultipartHttpServletRequest)request).getFiles("file");
         if (CollectionUtils.isEmpty(list)){
+            LOG.info("batch file upload file is null");
             return null;
         }
         String fileUrls = FileUploadUtil.uploadPics(list);

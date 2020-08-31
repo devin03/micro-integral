@@ -25,10 +25,9 @@
         <mysql.version>5.1.49</mysql.version>
         <slf4j-api.version>1.7.29</slf4j-api.version>
         <spring-cloud-context.version>2.2.3.RELEASE</spring-cloud-context.version>
-        <thymeleaf.version>2.3.3.RELEASE</thymeleaf.version>
         <jedis.version>2.9.1</jedis.version>
         <commons-configuration2.version>2.1.1</commons-configuration2.version>
-        <starter-actuator.version>1.5.4.RELEASE</starter-actuator.version>
+        <starter-actuator.version>2.3.3.RELEASE</starter-actuator.version>
     </properties>
 
     <dependencies>
@@ -86,7 +85,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>${thymeleaf.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -122,6 +120,13 @@
     </dependencies>
 
     <build>
+        <!-- 如果不设置resource 会导致application.yml中的@@找不到pom文件中的配置 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
