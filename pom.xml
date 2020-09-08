@@ -28,6 +28,7 @@
         <jedis.version>2.9.1</jedis.version>
         <commons-configuration2.version>2.1.1</commons-configuration2.version>
         <starter-actuator.version>2.3.3.RELEASE</starter-actuator.version>
+        <thumbnailator.version>0.4.8</thumbnailator.version>
     </properties>
 
     <dependencies>
@@ -104,6 +105,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${starter-actuator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
         </dependency>
 
         <dependency>

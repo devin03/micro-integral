@@ -52,5 +52,5 @@ spring:
 
 app:
   conf:
-    upload-url: "/Users/wangdongming/Documents/work/resource/upload/" #文件上传路径
-    show-url: "/image/" #文件回显路径
+    upload-url: "/Users/wangdongming/Documents/work/resource/upload/" #图片上传路径
+    show-url: "/image/" #图片回显路径

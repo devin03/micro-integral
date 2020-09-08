@@ -31,8 +31,10 @@ public class IndexController {
         String imageUrls = fileHandleBusiness.batchFileUploadHandle(request);
         redirectAttributes.addFlashAttribute("message", "成功上传!");
         System.out.println("上传的文件路径：" + imageUrls);
+        String[] split = imageUrls.split(",");
         // 将文件传输成功之后的名字传回界面，用于展示图片
-        model.addAttribute("picName", imageUrls);
+        model.addAttribute("picName", split[0]);
+        model.addAttribute("picNameThumbnail", split[1]);
         return "uploadPic";
     }
 
